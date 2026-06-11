@@ -5,6 +5,12 @@
 **Status**: Draft
 **Input**: User description: "--file StakeholderDocs/document-upload-and-management-feature.md"
 
+## Clarifications
+
+### Session 2026-06-11
+
+- Q: How should document sharing resolve permissions for team recipients — fixed recipients at share time, dynamic team/project membership, or user-only shares? → A: Dynamic team/project membership (Option A). When a document is shared with a team, access is resolved dynamically based on current team and project membership; permission changes (adds/removals) apply immediately.
+
 ## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Upload and organize project documents (Priority: P1)
@@ -73,6 +79,8 @@ Users can edit metadata, replace files, delete owned documents, and share docume
 - **FR-009**: System MUST allow document owners to edit metadata and replace files.
 - **FR-010**: System MUST allow document owners and authorized project managers to delete documents.
 - **FR-011**: System MUST allow users to share documents with specific users or teams and notify recipients.
+
+- **FR-011a**: When a document is shared with a team or project group, access MUST be resolved dynamically from current team/project membership. Changes to team membership or project roles MUST take effect immediately and update access to previously shared documents.
 - **FR-012**: System MUST log document actions such as upload, download, delete, and share.
 - **FR-013**: System MUST prevent access to documents for users without proper permissions.
 - **FR-014**: System MUST support a local file storage implementation with an interface for future cloud storage migration.
@@ -80,7 +88,7 @@ Users can edit metadata, replace files, delete owned documents, and share docume
 ### Key Entities _(include if feature involves data)_
 
 - **Document**: Represents an uploaded file and its metadata, including title, description, category, tags, project association, uploader, upload date/time, file size, file type, and storage path.
-- **DocumentShare**: Represents sharing records between documents and recipients (users or teams).
+  -- **DocumentShare**: Represents sharing records between documents and recipients (users or teams). When a share targets a team or project group, permission checks MUST resolve dynamically using current membership; the `DocumentShare` record records the share intent, not a fixed recipient list.
 - **DocumentMetadata**: Logical metadata attributes that drive search, filtering, and permissions.
 
 ## Success Criteria _(mandatory)_
