@@ -5,6 +5,7 @@
 @using System.Security.Claims
 @attribute [Authorize]
 @inject IProjectService ProjectService
+@inject DocumentService DocumentService
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
@@ -151,6 +152,59 @@
                         }
                     </div>
                 </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Project Documents</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (projectDocuments == null)
+                        {
+                            <p><em>Loading documents...</em></p>
+                        }
+                        else if (!projectDocuments.Any())
+                        {
+                            <p class="text-muted">No documents uploaded for this project yet.</p>
+                        }
+                        else
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Size</th>
+                                            <th>Uploaded By</th>
+                                            <th>Uploaded On</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var doc in projectDocuments)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <strong>@doc.Title</strong>
+                                                    @if (!string.IsNullOrEmpty(doc.Description))
+                                                    {
+                                                        <br />
+                                                        <small class="text-muted">@doc.Description</small>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-info">@doc.Category</span>
+                                                </td>
+                                                <td>@FormatFileSize(doc.FileSize)</td>
+                                                <td>@doc.UploadedBy</td>
+                                                <td>@doc.UploadedAt.ToString("MMM dd, yyyy")</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-4">
@@ -238,6 +292,7 @@
 
     private Project? project;
     private int currentUserId = 0;
+    private List<Document> projectDocuments = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -253,6 +308,7 @@
         if (currentUserId > 0)
         {
             project = await ProjectService.GetProjectByIdAsync(ProjectId, currentUserId);
+            projectDocuments = await DocumentService.SearchDocumentsAsync(currentUserId, null, ProjectId, null);
         }
         
         if (project == null)
@@ -304,5 +360,16 @@
             return $"{names[0][0]}{names[1][0]}".ToUpper();
         }
         return displayName.Length > 0 ? displayName[0].ToString().ToUpper() : "?";
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        if (bytes < 1024)
+            return $"{bytes} B";
+        if (bytes < 1024 * 1024)
+            return $"{(bytes / 1024.0):F1} KB";
+        if (bytes < 1024 * 1024 * 1024)
+            return $"{(bytes / (1024.0 * 1024)):F1} MB";
+        return $"{(bytes / (1024.0 * 1024 * 1024)):F1} GB";
     }
 }

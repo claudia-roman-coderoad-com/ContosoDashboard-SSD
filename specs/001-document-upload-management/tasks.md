@@ -5,26 +5,26 @@
 
 ## Phase 1: Setup (Shared Infrastructure)
 
-- [ ] T001 Create the feature folder structure in `specs/001-document-upload-management/`
-- [ ] T002 Confirm `.github/copilot-instructions.md` references `specs/001-document-upload-management/plan.md`
-- [ ] T003 [P] Update `ContosoDashboard/ContosoDashboard.csproj` with EF Core SQLite and local file storage dependencies
-- [ ] T004 [P] Add `IFileStorageService` interface and `LocalFileStorageService` implementation in `ContosoDashboard/Services/`
-- [ ] T005 [P] Add feature documentation placeholders for `research.md`, `data-model.md`, `quickstart.md`, and `contracts/api.md`
+- [x] T001 Create the feature folder structure in `specs/001-document-upload-management/`
+- [x] T002 Confirm `.github/copilot-instructions.md` references `specs/001-document-upload-management/plan.md`
+- [x] T003 [P] Update `ContosoDashboard/ContosoDashboard.csproj` with EF Core SQLite and local file storage dependencies
+- [x] T004 [P] Add `IFileStorageService` interface and `LocalFileStorageService` implementation in `ContosoDashboard/Services/`
+- [x] T005 [P] Add feature documentation placeholders for `research.md`, `data-model.md`, `quickstart.md`, and `contracts/api.md`
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T006 Add `Document` entity to `ContosoDashboard/Data/ApplicationDbContext.cs` and model class in `ContosoDashboard/Models/Document.cs`
-- [ ] T007 Add `DocumentShare` entity to `ContosoDashboard/Data/ApplicationDbContext.cs` and model class in `ContosoDashboard/Models/DocumentShare.cs`
-- [ ] T008 Add `DocumentAudit` entity to `ContosoDashboard/Data/ApplicationDbContext.cs` and model class in `ContosoDashboard/Models/DocumentAudit.cs`
-- [ ] T009 Implement EF Core migration for document management entities using `dotnet ef migrations add AddDocumentManagement`
-- [ ] T010 Implement local file storage path strategy in `ContosoDashboard/Services/LocalFileStorageService.cs` using `AppData/uploads/{userId}/{projectId|personal}/{guid}.{ext}`
-- [ ] T011 Implement upload metadata validation and storage in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T012 Implement secure file access authorization checks in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T013 Add configuration for upload directories in `ContosoDashboard/appsettings.json` and `ContosoDashboard/appsettings.Development.json`
-- [ ] T014 [P] Define `DocumentShare` dynamic permission resolution logic in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T015 Add async scan queue enqueue logic to `ContosoDashboard/Services/DocumentService.cs` for Azure Queue Storage integration
+- [x] T006 Add `Document` entity to `ContosoDashboard/Data/ApplicationDbContext.cs` and model class in `ContosoDashboard/Models/Document.cs`
+- [x] T007 Add `DocumentShare` entity to `ContosoDashboard/Data/ApplicationDbContext.cs` and model class in `ContosoDashboard/Models/DocumentShare.cs`
+- [x] T008 Add `DocumentAudit` entity to `ContosoDashboard/Data/ApplicationDbContext.cs` and model class in `ContosoDashboard/Models/DocumentAudit.cs`
+- [x] T009 Implement EF Core migration for document management entities using `dotnet ef migrations add AddDocumentManagement`
+- [x] T010 Implement local file storage path strategy in `ContosoDashboard/Services/LocalFileStorageService.cs` using `AppData/uploads/{userId}/{projectId|personal}/{guid}.{ext}`
+- [x] T011 Implement upload metadata validation and storage in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T012 Implement secure file access authorization checks in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T013 Add configuration for upload directories in `ContosoDashboard/appsettings.json` and `ContosoDashboard/appsettings.Development.json`
+- [x] T014 [P] Define `DocumentShare` dynamic permission resolution logic in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T015 Add async scan queue enqueue logic to `ContosoDashboard/Services/DocumentService.cs` for Azure Queue Storage integration
 
 ---
 
@@ -34,12 +34,12 @@
 
 **Independent Test**: Upload a valid file with metadata and confirm it appears in the user's document list with correct metadata.
 
-- [ ] T016 [US1] Create upload page component `ContosoDashboard/Pages/Documents.razor`
-- [ ] T017 [US1] Create upload modal/component in `ContosoDashboard/Pages/Documents.razor`
-- [ ] T018 [US1] Implement `POST /api/documents/upload` endpoint in `ContosoDashboard/Pages/Documents.razor.cs` or API controller
-- [ ] T019 [US1] Implement file validation for supported types and 25 MB maximum size in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T020 [US1] Implement metadata persistence in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T021 [US1] Add success/error messaging to `ContosoDashboard/Pages/Documents.razor`
+- [x] T016 [US1] Create upload page component `ContosoDashboard/Pages/Documents.razor`
+- [x] T017 [US1] Create upload modal/component in `ContosoDashboard/Pages/Documents.razor`
+- [x] T018 [US1] Implement `POST /api/documents/upload` endpoint in `ContosoDashboard/Pages/Documents.razor.cs` or API controller
+- [x] T019 [US1] Implement file validation for supported types and 25 MB maximum size in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T020 [US1] Implement metadata persistence in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T021 [US1] Add success/error messaging to `ContosoDashboard/Pages/Documents.razor`
 - [ ] T022 [US1] Add unit tests for upload validation in `ContosoDashboard.Tests/DocumentServiceTests.cs`
 - [ ] T023 [US1] Add integration test for upload flow in `ContosoDashboard.Tests/DocumentUploadTests.cs`
 
@@ -51,11 +51,11 @@
 
 **Independent Test**: Search by title or tag and verify returned documents are accessible to the user.
 
-- [ ] T024 [US2] Create `My Documents` view in `ContosoDashboard/Pages/Documents.razor`
+- [x] T024 [US2] Create `My Documents` view in `ContosoDashboard/Pages/Documents.razor`
 - [ ] T025 [US2] Create project documents view in `ContosoDashboard/Pages/ProjectDetails.razor`
-- [ ] T026 [US2] Implement document list retrieval in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T027 [US2] Implement search/filter query support in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T028 [US2] Implement list sorting by title, date, category, and size in `ContosoDashboard/Pages/Documents.razor`
+- [x] T026 [US2] Implement document list retrieval in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T027 [US2] Implement search/filter query support in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T028 [US2] Implement list sorting by title, date, category, and size in `ContosoDashboard/Pages/Documents.razor`
 - [ ] T029 [US2] Add unit tests for search and filter logic in `ContosoDashboard.Tests/DocumentServiceTests.cs`
 - [ ] T030 [US2] Add integration test for document list search in `ContosoDashboard.Tests/DocumentSearchTests.cs`
 

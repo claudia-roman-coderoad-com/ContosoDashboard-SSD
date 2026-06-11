@@ -17,6 +17,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<Notification> Notifications { get; set; } = null!;
     public DbSet<ProjectMember> ProjectMembers { get; set; } = null!;
     public DbSet<Announcement> Announcements { get; set; } = null!;
+    public DbSet<Document> Documents { get; set; } = null!;
+    public DbSet<DocumentShare> DocumentShares { get; set; } = null!;
+    public DbSet<DocumentAudit> DocumentAudits { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -63,6 +66,30 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Email)
             .IsUnique();
+
+        modelBuilder.Entity<Document>()
+            .HasIndex(d => d.Title);
+
+        modelBuilder.Entity<Document>()
+            .HasIndex(d => d.Tags);
+
+        modelBuilder.Entity<Document>()
+            .HasIndex(d => d.ProjectId);
+
+        modelBuilder.Entity<Document>()
+            .HasIndex(d => d.UploadedByUserId);
+
+        modelBuilder.Entity<Document>()
+            .Property(d => d.UploadedAt)
+            .HasConversion(
+                v => v.UtcDateTime,
+                v => new DateTimeOffset(DateTime.SpecifyKind(v, DateTimeKind.Utc)));
+
+        modelBuilder.Entity<DocumentShare>()
+            .HasIndex(ds => new { ds.DocumentId, ds.RecipientUserId, ds.RecipientTeamId });
+
+        modelBuilder.Entity<DocumentAudit>()
+            .HasIndex(da => da.DocumentId);
 
         // Seed initial data
         SeedData(modelBuilder);
